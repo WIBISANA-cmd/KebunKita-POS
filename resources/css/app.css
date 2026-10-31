@@ -1,0 +1,256 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../views/**/*.blade.php';
+@source '../js/**/*.{ts,tsx}';
+
+/* Desktop dengan tinggi terbatas, misalnya laptop 1366x768 */
+@custom-variant pendek (@media (max-height: 960px) and (min-width: 64rem));
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --shadow-kartu: 0 1px 2px rgb(20 34 27 / 0.04), 0 4px 16px rgb(20 34 27 / 0.04);
+  --shadow-kartu-angkat: 0 2px 4px rgb(20 34 27 / 0.05), 0 12px 28px rgb(0 159 82 / 0.10);
+
+  --animate-kilau: kilau 1.4s ease-in-out infinite;
+  --animate-riak: riak 0.55s ease-out forwards;
+  --animate-mengambang: mengambang 3.6s ease-in-out infinite;
+  --animate-goyang: goyang 0.42s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+  --animate-muncul-naik: muncul-naik 0.45s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  --animate-habis: habis 4s linear forwards;
+  --animate-gumpal: gumpal 14s ease-in-out infinite alternate;
+}
+
+@keyframes kilau {
+  from { background-position: 180% 0; }
+  to { background-position: -20% 0; }
+}
+
+@keyframes riak {
+  from { transform: scale(0); opacity: 1; }
+  to { transform: scale(1); opacity: 0; }
+}
+
+@keyframes mengambang {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes goyang {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(2px); }
+}
+
+@keyframes muncul-naik {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes habis {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
+}
+
+@keyframes gumpal {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(40px, -30px) scale(1.15); }
+}
+
+:root {
+  --kk-primary: #009f52;
+  --kk-primary-dark: #007b40;
+  --kk-primary-light: #e6f8ef;
+  --kk-accent: #ff8a2b;
+  --kk-bg: #f6f9f7;
+  --kk-surface: #ffffff;
+  --kk-border: #e3ece7;
+  --kk-text: #14221b;
+  --kk-text-muted: #5f756b;
+  --kk-radius: 16px;
+}
+
+body {
+  background-color: var(--kk-bg);
+  color: var(--kk-text);
+  font-family: var(--font-sans);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility scroll-tipis {
+  scrollbar-width: thin;
+  scrollbar-color: #d5e3db transparent;
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #d5e3db;
+    border-radius: 999px;
+  }
+}
+
+@utility pola-titik {
+  background-image: radial-gradient(circle, currentColor 4px, transparent 4.5px);
+  background-size: 38px 38px;
+  mask-image: linear-gradient(to left, black 40%, transparent);
+}
+
+/* Kilap yang menyapu tombol utama saat disorot */
+@utility kilap-lewat {
+  &::after {
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    left: -60%;
+    width: 40%;
+    background: linear-gradient(100deg, transparent, rgb(255 255 255 / 0.35), transparent);
+    transform: skewX(-18deg);
+    transition: left 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+  &:hover:not(:disabled)::after {
+    left: 120%;
+  }
+}
+
+/* Baris semua tabel masuk bergantian; dibatasi 12 baris agar tabel panjang tidak terasa lambat */
+tbody tr {
+  animation: muncul-naik 0.4s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+tbody tr:nth-child(2) { animation-delay: 30ms; }
+tbody tr:nth-child(3) { animation-delay: 60ms; }
+tbody tr:nth-child(4) { animation-delay: 90ms; }
+tbody tr:nth-child(5) { animation-delay: 120ms; }
+tbody tr:nth-child(6) { animation-delay: 150ms; }
+tbody tr:nth-child(7) { animation-delay: 180ms; }
+tbody tr:nth-child(8) { animation-delay: 210ms; }
+tbody tr:nth-child(9) { animation-delay: 240ms; }
+tbody tr:nth-child(10) { animation-delay: 270ms; }
+tbody tr:nth-child(11) { animation-delay: 300ms; }
+tbody tr:nth-child(n + 12) { animation-delay: 330ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Semua elemen yang bisa diklik memakai kursor tangan */
+@layer base {
+  a[href],
+  button:not(:disabled),
+  select:not(:disabled),
+  summary,
+  [role='button'],
+  label:has(input:not(:disabled)),
+  input[type='checkbox']:not(:disabled),
+  input[type='radio']:not(:disabled),
+  input[type='file']:not(:disabled),
+  input[type='range']:not(:disabled),
+  input::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  select:disabled,
+  input:disabled {
+    cursor: not-allowed;
+  }
+}
+
+/* Struk thermal 80mm: hitam murni tanpa abu-abu karena kertas thermal tidak mencetak gradasi */
+.struk {
+  width: 80mm;
+  box-sizing: border-box;
+  padding: 5mm 4mm 7mm;
+  background: #fff;
+  color: #000;
+  font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+  font-size: 10pt;
+  font-weight: 500;
+  line-height: 1.35;
+  font-variant-numeric: tabular-nums;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.struk-kepala { text-align: center; }
+.struk-logo { display: block; width: 11mm; height: 11mm; margin: 0 auto 1mm; }
+.struk-merek { font-size: 19pt; font-weight: 800; letter-spacing: 0.07em; line-height: 1.1; }
+.struk-cabang { margin-top: 1.2mm; font-size: 9.5pt; font-weight: 700; }
+.struk-kecil { font-size: 8.5pt; }
+.struk-pita {
+  display: flex;
+  justify-content: space-between;
+  margin: 3.5mm 0 3mm;
+  padding: 1.3mm 2.5mm;
+  border-radius: 1.5mm;
+  background: #000;
+  color: #fff;
+  font-size: 9.5pt;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+.struk-baris { display: flex; justify-content: space-between; gap: 3mm; }
+.struk-baris > span:first-child { flex-shrink: 0; max-width: 62%; }
+.struk-baris > span:last-child { text-align: right; }
+.struk-angka { white-space: nowrap; }
+.struk-tebal { font-weight: 800; }
+.struk-garis { margin: 2.8mm 0; border-top: 1px dashed #000; }
+.struk-item + .struk-item { margin-top: 2.2mm; }
+.struk-item-nama { font-weight: 700; }
+.struk-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 2.8mm 0;
+  padding: 2.2mm 2.5mm;
+  border-radius: 1.5mm;
+  background: #000;
+  color: #fff;
+  font-size: 14pt;
+  font-weight: 800;
+}
+.struk-kaki { text-align: center; }
+.struk-terima-kasih { margin-bottom: 0.8mm; font-size: 13pt; font-weight: 800; }
+
+/* Pratinjau di layar: tepi bawah bergerigi seperti kertas yang disobek */
+.struk-kertas {
+  filter: drop-shadow(0 6px 14px rgb(20 34 27 / 0.16));
+}
+.struk-kertas > .struk {
+  mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 12px 100%;
+}
+
+#area-cetak-nota {
+  display: none;
+}
+
+@media print {
+  html,
+  body {
+    margin: 0;
+    background: #fff !important;
+  }
+  body > * {
+    display: none !important;
+  }
+  body > #area-cetak-nota {
+    display: block !important;
+  }
+}

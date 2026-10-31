@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Kebun Kita POS, sistem kasir dan persediaan toko sayur">
+  <defs>
+    <linearGradient id="latar" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b4a2b">
+        <animate attributeName="stop-color" values="#0b4a2b;#0e6b3e;#0b4a2b" dur="9s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="0.55" stop-color="#0f7a4c"/>
+      <stop offset="1" stop-color="#14906c">
+        <animate attributeName="stop-color" values="#14906c;#1fb488;#14906c" dur="9s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+    <linearGradient id="bentuk" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.13"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0.02"/>
+    </linearGradient>
+    <clipPath id="kartu"><rect width="1200" height="400" rx="32"/></clipPath>
+    <style>
+      text { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif; }
+      .judul { font-size: 76px; font-weight: 800; fill: #ffffff; letter-spacing: -1.5px; }
+      .pos { font-size: 76px; font-weight: 300; fill: #bfe6da; }
+      .sub { font-size: 25px; font-weight: 500; fill: #e6f8ef; }
+      .chip { font-size: 15.5px; font-weight: 600; fill: #0b4a2b; }
+      .naik { opacity: 0; animation: naik 0.9s cubic-bezier(.22,1,.36,1) forwards; }
+      .n2 { animation-delay: .25s; }
+      .n3 { animation-delay: .5s; }
+      .n4 { animation-delay: .75s; }
+      .n5 { animation-delay: .95s; }
+      .n6 { animation-delay: 1.15s; }
+      .n7 { animation-delay: 1.35s; }
+      .tumbuh { stroke-dasharray: 400; stroke-dashoffset: 400; animation: tumbuh 1.6s .2s ease-out forwards; }
+      .daun { opacity: 0; transform-box: fill-box; transform-origin: bottom center; animation: daun .9s 1s cubic-bezier(.34,1.56,.64,1) forwards; }
+      .daun2 { animation-delay: 1.25s; }
+      .denyut { transform-box: fill-box; transform-origin: center; animation: denyut 3.4s ease-out infinite; }
+      .d2 { animation-delay: 1.1s; }
+      .d3 { animation-delay: 2.2s; }
+      .apung { animation: apung 6s ease-in-out infinite; }
+      .a2 { animation-duration: 8s; animation-delay: -2s; }
+      .a3 { animation-duration: 10s; animation-delay: -4s; }
+      .ayun { transform-box: fill-box; transform-origin: bottom center; animation: ayun 5s ease-in-out infinite 2.2s; }
+      @keyframes naik { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: translateY(0); } }
+      @keyframes tumbuh { to { stroke-dashoffset: 0; } }
+      @keyframes daun { from { opacity: 0; transform: scale(.2); } to { opacity: 1; transform: scale(1); } }
+      @keyframes denyut { 0% { transform: scale(.55); opacity: .55; } 100% { transform: scale(1.5); opacity: 0; } }
+      @keyframes apung { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
+      @keyframes ayun { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(3deg); } }
+      @media (prefers-reduced-motion: reduce) {
+        * { animation: none !important; opacity: 1 !important; stroke-dashoffset: 0 !important; }
+      }
+    </style>
+  </defs>
+
+  <g clip-path="url(#kartu)">
+    <rect width="1200" height="400" fill="url(#latar)"/>
+
+    <path class="apung" d="M760 -40C900 -60 1240 -20 1260 140C1270 300 1040 340 900 250C790 180 660 20 760 -40Z" fill="url(#bentuk)"/>
+    <path class="apung a2" d="M-60 300C60 240 240 300 300 380C330 430 200 470 60 450C-40 440 -120 340 -60 300Z" fill="url(#bentuk)"/>
+    <circle class="apung a3" cx="1090" cy="330" r="120" fill="url(#bentuk)"/>
+
+    <g transform="translate(965 200)">
+      <circle class="denyut" r="118" fill="none" stroke="#ffffff" stroke-opacity=".5" stroke-width="2"/>
+      <circle class="denyut d2" r="118" fill="none" stroke="#ffffff" stroke-opacity=".5" stroke-width="2"/>
+      <circle class="denyut d3" r="118" fill="none" stroke="#ffffff" stroke-opacity=".5" stroke-width="2"/>
+      <circle r="96" fill="#ffffff"/>
+      <g transform="translate(-53 -58) scale(4.4)"><g class="ayun" fill="none" stroke="#0e6b3e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path class="tumbuh" d="M7 20h10"/>
+        <path class="tumbuh" d="M10 20c5.5-2.5.8-6.4 3-10"/>
+        <path class="daun" d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z" fill="#5fdc96"/>
+        <path class="daun daun2" d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z" fill="#5fdc96"/>
+      </g></g>
+    </g>
+
+    <text class="naik" x="72" y="150"><tspan class="judul">Kebun Kita</tspan><tspan class="pos" dx="16">POS</tspan></text>
+    <text class="naik n2 sub" x="74" y="202">Kasir, persediaan FEFO, dan laporan untuk toko sayur modern</text>
+
+    <g transform="translate(74 244)"><g class="naik n3"><rect width="134" height="44" rx="22" fill="#ffffff"/><text class="chip" x="67" y="28" text-anchor="middle">Kasir cepat</text></g></g>
+    <g transform="translate(220 244)"><g class="naik n4"><rect width="134" height="44" rx="22" fill="#bfe6da"/><text class="chip" x="67" y="28" text-anchor="middle">Stok FEFO</text></g></g>
+    <g transform="translate(366 244)"><g class="naik n5"><rect width="134" height="44" rx="22" fill="#ffffff"/><text class="chip" x="67" y="28" text-anchor="middle">Realtime</text></g></g>
+    <g transform="translate(512 244)"><g class="naik n6"><rect width="134" height="44" rx="22" fill="#bfe6da"/><text class="chip" x="67" y="28" text-anchor="middle">Struk 80mm</text></g></g>
+    <g transform="translate(74 300)"><g class="naik n7"><text class="sub" y="26" style="font-size:18px;fill:#bfe6da">Laravel 13  ·  React 19  ·  PostgreSQL 18  ·  Reverb  ·  Docker</text></g></g>
+  </g>
+</svg>
