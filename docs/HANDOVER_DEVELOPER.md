@@ -12,6 +12,22 @@ Dokumen ini disusun untuk **Developer Manusia** yang akan mengoperasikan, menjal
 - **Node.js & npm**: Node >= 20.x, npm >= 10.x
 - **PostgreSQL**: PostgreSQL 16+ (Aktif: PostgreSQL 18.6 pada port 5432)
 
+### Konfigurasi Database & Skema PostgreSQL:
+Aplikasi mendukung konfigurasi skema PostgreSQL kustom melalui variabel `DB_SCHEMA` pada berkas `.env`. Hal ini memastikan seluruh tabel aplikasi dan tabel `migrations` terisolasi pada skema khusus (tidak mencemari skema `public`):
+
+```env
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=kebun_kita
+DB_USERNAME=postgres
+DB_PASSWORD=
+DB_SCHEMA=kebun_kita
+```
+
+> [!NOTE]
+> Sistem secara otomatis mengeksekusi `CREATE SCHEMA IF NOT EXISTS "<DB_SCHEMA>"` ketika perintah artisan database (`migrate`, `db:seed`, dll.) dijalankan, sehingga developer tidak perlu membuat skema secara manual pada PostgreSQL.
+
 ### Langkah Setup Awal:
 ```bash
 # 1. Pastikan berkas .env telah terkonfigurasi dengan database PostgreSQL

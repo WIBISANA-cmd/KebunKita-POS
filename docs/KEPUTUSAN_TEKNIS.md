@@ -51,3 +51,9 @@
    - Tabel `audit_aksi` bersifat append-only untuk merekam perubahan entitas sensitif (master harga, role, izin, koreksi stok, approval selisih kas).
    - Prinsip immutability ledger stok: saldo tidak pernah diubah secara langsung (`UPDATE saldo_stok SET ...`) tanpa pencatatan pada `dokumen_stok` dan `mutasi_stok`.
 
+9. **Isolasi Skema Database (PostgreSQL Multi-Schema / DB_SCHEMA)**
+   - Mendukung isolasi penuh database multi-tenant / multi-project di PostgreSQL melalui variabel `DB_SCHEMA` pada `.env`.
+   - Konfigurasi `search_path` pada `config/database.php` mengacu ke `env('DB_SCHEMA', 'public')`.
+   - Saat menjalankan command artisan (`migrate`, `db:seed`, dll.), `AppServiceProvider` secara otomatis memvalidasi dan mengeksekusi `CREATE SCHEMA IF NOT EXISTS "<DB_SCHEMA>"` sebelum migrasi dijalankan, sehingga tabel aplikasi dan tabel `migrations` tidak akan masuk ke skema `public`.
+
+
